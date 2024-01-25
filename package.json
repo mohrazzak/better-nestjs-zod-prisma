@@ -1,16 +1,16 @@
 {
   "name": "better-nestjs-zod-prisma",
   "version": "1.0.0",
-  "description": "A Prisma generator that creates Zod schemas for all of your models",
+  "description": "A Prisma generator that creates Zod schemas for all of your models \"Enhanced\"",
   "license": "MIT",
-  "author": "Evgeny Zakharov",
+  "author": "Mohammad Abdalrazzak",
   "homepage": "https://github.com/risenforces/nestjs-zod-prisma#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/risenforces/nestjs-zod-prisma.git"
+    "url": "https://github.com/mohrazzak/better-nestjs-zod-prisma.git"
   },
   "bugs": {
-    "url": "https://github.com/risenforces/nestjs-zod-prisma/issues"
+    "url": "https://github.com/mohrazzak/better-nestjs-zod-prisma/issues"
   },
   "main": "dist/index.js",
   "module": "dist/nestjs-zod-prisma.esm.js",
@@ -22,6 +22,8 @@
     "zod",
     "prisma",
     "generator",
+    "nestjs-zod-prisma",
+    "better-nestjs-zod-prisma",
     "nestjs-zod"
   ],
   "files": [
@@ -43,7 +45,9 @@
     "@prisma/generator-helper": "^4.3.1",
     "parenthesis": "^3.1.8",
     "ts-morph": "^13.0.2",
-    "zod": "^3.17.3"
+    "zod": "^3.17.3",
+    "@anatine/zod-openapi": "^2.2.1",
+    "@anatine/zod-nestjs": "^2.0.3"
   },
   "devDependencies": {
     "@eslint-kit/eslint-config-base": "^5.0.2",
@@ -62,7 +66,6 @@
     "fast-glob": "^3.2.5",
     "fs-extra": "^10.0.0",
     "jest-mock-extended": "^2.0.4",
-    "nestjs-zod": "^1.1.0",
     "prettier": "2.3.0",
     "prisma": "^4.3.1",
     "tslib": "^2.3.1",
@@ -70,7 +73,6 @@
   },
   "peerDependencies": {
     "decimal.js": "^10.0.0",
-    "nestjs-zod": "^3.0.0",
     "prisma": ">=4.0.0"
   },
   "peerDependenciesMeta": {
