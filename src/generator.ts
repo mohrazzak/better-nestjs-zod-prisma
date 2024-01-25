@@ -64,7 +64,7 @@ export const writeImportsForModel = (
       kind: StructureKind.ImportDeclaration,
       isTypeOnly: enumFields.length === 0,
       moduleSpecifier: dotSlash('enums'),
-      namedImports: enumFields.map((f) => f.type),
+      namedImports: Array.from(new Set(enumFields.map((f) => f.type))),
     })
   }
 
