@@ -23,9 +23,23 @@ export const writeImportsForModel = (
     {
       kind: StructureKind.ImportDeclaration,
       namespaceImport: 'z',
-      moduleSpecifier: '@anatine/zod-nestjs',
+      moduleSpecifier: 'zod',
     },
   ]
+
+  // ability to use openapi in nestjs-zod
+  importList.push({
+    kind: StructureKind.ImportDeclaration,
+    namedImports: ['extendZodWithOpenApi'],
+    moduleSpecifier: '@anatine/zod-openapi',
+  })
+
+  // ability to use openapi in nestjs-zod
+  importList.push({
+    kind: StructureKind.ImportDeclaration,
+    namedImports: ['$Enums'],
+    moduleSpecifier: '@prisma/client',
+  })
 
   if (config.generateDto) {
     importList.push({
@@ -58,20 +72,29 @@ export const writeImportsForModel = (
 
   const enumFields = model.fields.filter((f) => f.kind === 'enum')
 
-  const uniqueEnumFields = Array.from(
-    new Set(enumFields.map((f) => JSON.stringify(f.type)))
-  ).map((jsonString) => JSON.parse(jsonString) as string)
+  // Keep track of imported enum types
+  const importedEnums = new Set<string>()
 
-  const relationFields = model.fields.filter((f) => f.kind === 'object')
+  // Filter out duplicate enum types
+  const uniqueEnumFields = enumFields.filter((f) => {
+    const typeName = f.type
+    if (!importedEnums.has(typeName)) {
+      importedEnums.add(typeName)
+      return true
+    }
+    return false
+  })
 
-  if (enumFields.length > 0) {
+  if (uniqueEnumFields.length > 0) {
     importList.push({
       kind: StructureKind.ImportDeclaration,
-      isTypeOnly: enumFields.length === 0,
+      isTypeOnly: uniqueEnumFields.length === 0,
       moduleSpecifier: dotSlash('enums'),
-      namedImports: uniqueEnumFields,
+      namedImports: uniqueEnumFields.map((f) => f.type),
     })
   }
+
+  const relationFields = model.fields.filter((f) => f.kind === 'object')
 
   if (config.relationModel !== false && relationFields.length > 0) {
     const filteredFields = relationFields.filter((f) => f.type !== model.name)
@@ -93,6 +116,16 @@ export const writeImportsForModel = (
   }
 
   sourceFile.addImportDeclarations(importList)
+
+  sourceFile.addVariableStatement({
+    declarationKind: VariableDeclarationKind.Const,
+    declarations: [
+      {
+        initializer: (writer) => writer.write('extendZodWithOpenApi(z)'),
+        name: 'zodOpenApi',
+      },
+    ],
+  })
 }
 
 export const writeTypeSpecificSchemas = (

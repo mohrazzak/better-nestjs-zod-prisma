@@ -28,7 +28,7 @@ export const getZodConstructor = (
   ) {
     schema = mapScalarType[field.type]
   } else if (field.kind === 'enum') {
-    schema = `z.nativeEnum(${field.type})`
+    schema = `z.nativeEnum($Enums.${field.type})`
   } else if (field.kind === 'object') {
     schema = getRelatedModelName(field.type)
   } else {
@@ -56,7 +56,7 @@ export const getZodConstructor = (
   }
 
   if (!field.isRequired && field.type !== 'Json') {
-    schema += '.nullish()'
+    schema += '.nullable()'
   }
 
   return schema
