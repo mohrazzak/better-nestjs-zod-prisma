@@ -12,8 +12,5 @@
     "^@app(\\/(.*))?$",
     "^[./]"
   ],
-  "experimentalBabelParserPluginsList": [
-    "jsx",
-    "typescript"
-  ]
+  "experimentalBabelParserPluginsList": ["jsx", "typescript"]
 }
