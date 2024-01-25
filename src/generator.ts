@@ -23,7 +23,7 @@ export const writeImportsForModel = (
     {
       kind: StructureKind.ImportDeclaration,
       namespaceImport: 'z',
-      moduleSpecifier: 'nestjs-zod/z',
+      moduleSpecifier: '@anatine/zod-nestjs',
     },
   ]
 
@@ -31,7 +31,7 @@ export const writeImportsForModel = (
     importList.push({
       kind: StructureKind.ImportDeclaration,
       namedImports: ['createZodDto'],
-      moduleSpecifier: 'nestjs-zod/dto',
+      moduleSpecifier: '@anatine/zod-nestjs',
     })
   }
 
@@ -57,6 +57,11 @@ export const writeImportsForModel = (
   }
 
   const enumFields = model.fields.filter((f) => f.kind === 'enum')
+
+  const uniqueEnumFields = Array.from(
+    new Set(enumFields.map((f) => JSON.stringify(f.type)))
+  ).map((jsonString) => JSON.parse(jsonString) as string)
+
   const relationFields = model.fields.filter((f) => f.kind === 'object')
 
   if (enumFields.length > 0) {
@@ -64,7 +69,7 @@ export const writeImportsForModel = (
       kind: StructureKind.ImportDeclaration,
       isTypeOnly: enumFields.length === 0,
       moduleSpecifier: dotSlash('enums'),
-      namedImports: Array.from(new Set(enumFields.map((f) => f.type))),
+      namedImports: uniqueEnumFields,
     })
   }
 
