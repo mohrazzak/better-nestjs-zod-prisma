@@ -10,6 +10,12 @@
 <br/>
 </p>
 
+## Installation
+
+```bash
+npm i better-nestjs-zod-prisma
+```
+
 ## New Features
 
 It now supports Swagger out of the box, you can just have your schema defined and it will be swaggered using the `@anatine/zod-openapi` and also you can customize that using `.openapi()`
