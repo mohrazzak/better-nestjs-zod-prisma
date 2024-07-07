@@ -16,6 +16,17 @@
 npm i better-nestjs-zod-prisma
 ```
 
+### Note
+you have to still need to specify 
+```
+provider = "nestjs-zod-prisma"
+```
+And Not 
+```
+better-nestjs-zod-prisma
+```
+- It's part of the upcoming PR.
+
 ## New Features
 
 It now supports Swagger out of the box, you can just have your schema defined and it will be swaggered using the `@anatine/zod-openapi` and also you can customize that using `.openapi()`
