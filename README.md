@@ -17,13 +17,14 @@ npm i better-nestjs-zod-prisma
 ```
 
 ### Note
-you have to still need to specify 
+you still have to specify 
 ```
 provider = "nestjs-zod-prisma"
 ```
+In prisma schema file
 And Not 
 ```
-better-nestjs-zod-prisma
+provider = "better-nestjs-zod-prisma"
 ```
 - It's part of the upcoming PR.
 
